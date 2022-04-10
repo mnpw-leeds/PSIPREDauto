@@ -41,6 +41,10 @@ made before jobs are complete the server will start rejecting requests, causing 
 
 `single_submit` and `batch_submit` can both be called from the command line through "PSIPREDauto_commandline.py". Parameters are largely the same as in python but you must specify if you are submitting a single or batch job with a keyword argument rather than by calling a different function.
 
-### Logging
+## Logging
 
 PSIPREDauto uses the python `logging` module. Enable `logging` to see more information about what is going on behind the scenes.
+
+## Known issues
+
+Very large batches are currently prone to failure due to the server eventually rejecting a request even if the time interval is not set to a small value. Working on a feature to catch this exception and prevent the crash here.
