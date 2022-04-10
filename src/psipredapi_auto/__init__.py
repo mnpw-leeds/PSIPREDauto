@@ -1,0 +1,1 @@
+from psipredapi_auto_functions import single_submit, batch_submit

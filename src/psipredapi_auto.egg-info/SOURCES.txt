@@ -1,0 +1,12 @@
+LICENSE
+README.txt
+pyproject.toml
+setup.cfg
+src/psipredapi_auto/__init__.py
+src/psipredapi_auto/psipredapi_auto_commandline.py
+src/psipredapi_auto/psipredapi_auto_functions.py
+src/psipredapi_auto.egg-info/PKG-INFO
+src/psipredapi_auto.egg-info/SOURCES.txt
+src/psipredapi_auto.egg-info/dependency_links.txt
+src/psipredapi_auto.egg-info/requires.txt
+src/psipredapi_auto.egg-info/top_level.txt
