@@ -43,4 +43,4 @@ made before jobs are complete the server will start rejecting requests, causing 
 
 ### Logging
 
-psipredapi_auto uses `logging`
+psipredapi_auto uses the python `logging` module. Enable `logging` to see more information about what is going on behind the scenes.
