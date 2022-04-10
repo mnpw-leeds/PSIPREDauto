@@ -31,7 +31,7 @@ in the folder), an email address and an output directory where results will be s
 
 `batch_submit(r"C:\Sequences", "foo@bar.com", r"C:\Sequences\Results")`
 
-The results will be saved in the folder "C:\Sequences\Results\Output (dd-mm-yy h-m-s)", where (dd-mm-yy h-m-s) is the date and time when the job was submitted in european date format. 'batch_submit' also has
+The results will be saved in the folder "C:\Sequences\Results\Output (dd-mm-yy h-m-s)", where (dd-mm-yy h-m-s) is the date and time when the job was submitted in european date format. `batch_submit` also has
 the 'interval' parameter which behaves in the same way as in `single_submit`. It is recommended to not alter this in most cases as setting lower values can lead to instability. For small batches of 
 short sequences lower values may lead to faster completion, however for longer sequences and larger batches it may cause the program to crash before completion. This is because if too many requests are 
 made before jobs are complete the server will start rejecting requests, causing an exception to be thrown. At present this will cause the program to crash.
