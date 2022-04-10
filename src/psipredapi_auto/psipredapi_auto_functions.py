@@ -8,14 +8,14 @@ Psipred REST API script, automated submission and retrieval of result for
 individual and batch submission of .fasta files
 
 The function submit() is based on the example script provided by the PSIPRED team, 
-(available at http://www.cs.ucl.ac.uk/fileadmin/bioinf/PSIPRED/send_fasta.py)
+available at http://www.cs.ucl.ac.uk/fileadmin/bioinf/PSIPRED/send_fasta.py
 
 """
 import requests, os, logging, time
 from pathlib import Path
 import progressbar #The only external package required
 
-log = logging.getLogger("psipredapi_auto")
+log = logging.getLogger("PSIPREDauto")
 
 """Core functions"""
 
@@ -36,8 +36,7 @@ def submit(fasta_file, email, file_path=""):
             sub_name = output["submission_name"]
             return(uuid,sub_name)
     except KeyError:
-        log.error(f"Error:{KeyError}")
-        log.error(f"Returned by server: {output}")
+        log.error(f"Error:{KeyError}\nReturned by server: {output}")
         return(False,False)
 
 def check(UUID):
@@ -48,10 +47,10 @@ def check(UUID):
         data_paths = []
         for result in output["submissions"][0]["results"]:
             data_paths.append(result["data_path"])
-        log.debug(f"Job for {UUID} is finished")
+        log.debug(f"Job for {UUID} is finished\nReturned by server: {output}")
         return(data_paths)
     else:#If the job is not finished
-        log.debug(f"Job for {UUID} is not finished")
+        log.debug(f"Job for {UUID} is not finished\nReturned by server: {output}")
         return(False)
     
 def get_results(name,paths,output_path=""): #Name is only used for writing new file names
@@ -131,15 +130,14 @@ def batch_submit(input_path, email, output, interval=4): #Provide input_path to 
             time.sleep(interval*60) #Wait for the server to calculate the results. PSIPRED team recommend 2-5 minute wait. This script defaults to 2 minutes.
             
             for file in list(running): #Check to see if the results are ready
-                if running[file]["UUID"] is not None: #Will be None if the file was not correctly uploaded by submit(). Probably indicates an issue with the file itself.
+                if running[file]["UUID"] is not None: #Will be None if the file was not correctly uploaded by submit(). Most often due to hitting the max number of jobs but could be due to an issue with the file itself (e.g. wrong format, empty, etc.)
                     running[file]["input_paths"] = check(running[file]["UUID"])
                     if running[file]["input_paths"] is not False: #Will be False if the results were found to be not ready by check()
-                        to_get[file] = running.pop(file)      
+                        to_get[file] = running.pop(file) #Move out of "running" and into "to_get", the contents of which will be downloaded
             for file in to_get: #Download the results
-                log.debug(f"file = {file}")
-                log.debug(f"to_get[file]['input_paths'] = {to_get[file]['input_paths']}")
+                log.debug(f"file = {file}\nto_get[file]['input_paths'] = {to_get[file]['input_paths']}")
                 get_results(file,to_get[file]["input_paths"],output_path=f"{output}\\{output_dir}")
-            completed += len(to_get) #Update the progress bar
+            completed += len(to_get) #Update the completed count with the sequences that have just been finished
             bar.update(completed)
             to_get = {} #Empty after the files have been downloaded to prevent repetition
     print(">>>COMPLETE<<<")
