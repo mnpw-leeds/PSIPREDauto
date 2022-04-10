@@ -47,4 +47,4 @@ PSIPREDauto uses the python `logging` module. Enable `logging` to see more infor
 
 ## Known issues
 
-Very large batches (~>1000 sequences) are currently prone to failure due to the server eventually rejecting a request even if the time interval is not set to a small value. Working on a feature to catch this exception and prevent the crash here.
+Very large batches (~>1000 sequences) are currently prone to failure due to the server eventually rejecting a request even if the time interval is not set to a small value. Possibly due to high load from other users? Working on a feature to catch this exception and prevent the crash here.
