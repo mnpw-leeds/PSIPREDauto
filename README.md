@@ -1,6 +1,6 @@
 # PSIPREDauto Readme
 
-PSIPREDauto is an unofficial python package to simplify and automate submission to the PSIPRED REST API. PSIPRED is a program to predict the secondary
+PSIPREDauto is an unofficial python package to simplify and automate use of the PSIPRED REST API. PSIPRED is a program to predict the secondary
 structure of proteins, available as an [interactive web app](http://bioinf.cs.ucl.ac.uk/psipred/), a [REST API](http://bioinfadmin.cs.ucl.ac.uk/UCL-CS_Bioinformatics_Web_Services.html) and [source code on GitHub](https://github.com/psipred/psipred). All versions of PSIPRED were developed and are maintained by the [UCL Department of Computer Science: Bioinformatics Group](http://bioinf.cs.ucl.ac.uk/).
 This is an unnoffical package and is not affiliated with the PSIPRED team or UCL.
 
