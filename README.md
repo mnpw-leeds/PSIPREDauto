@@ -4,7 +4,7 @@ psipredapi_auto is an unofficial python package to simplify and automate submiss
 structure of proteins, available as an [interactive web app](http://bioinf.cs.ucl.ac.uk/psipred/), a [REST API](http://bioinfadmin.cs.ucl.ac.uk/UCL-CS_Bioinformatics_Web_Services.html) and [source code on GitHub](https://github.com/psipred/psipred). All version of PSIPRED were developed and are maintained by the [UCL Department of Computer Science: Bioinformatics Group](http://bioinf.cs.ucl.ac.uk/).
 This is an unnoffical package and is not affiliated with the PSIPRED team or UCL.
 
-This package was developed as the documentation for both the PSIPRED REST API and source code is out of date and difficult to use, and only individual jobs can be submitted via the web app. Consequently using PSIPRED for any more than a handful of jobs is currently difficult. The aim of psipredapi_auto is to allow submission of large numbers of jobs to PSIPRED with minimal effort. 
+This package was developed as the documentation for both the PSIPRED REST API and source code is out of date and difficult to use, and only individual jobs can be submitted via the web app. Consequently using PSIPRED for any more than a handful of jobs is currently difficult. The aim of psipredapi_auto is to allow submission of large numbers of jobs to PSIPRED with minimal effort via python. 
 
 psipredapi_auto can be used either as a python package in your IDE, or from the command line via the psipredapi_auto_commandline.py script. psipredapi_auto has only been tested on Windows 10, however uses no OS specifc features so should work on any OS.
 
