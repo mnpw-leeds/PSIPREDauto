@@ -51,7 +51,7 @@ To submit "TestSeq.fasta" in the directory "C:\Sequences" and save the results i
 
 `python -m PSIPREDauto.PSIPREDauto_commandline --single --input "C:\Sequences\TestSeq.fasta" --email "foo@bar.com" --output "C:\Sequences\Results"`
 
-Submitting a batch job is similar, but the `--batch` keywoard must be used instead of `--single`. For example to submit all .fasta files in "C:\Sequences" and save the results in "C:\Sequences\Results\Output {timestamp}" you would use the following:
+Submitting a batch job is similar, but the `--batch` keyword must be used instead of `--single`. For example to submit all .fasta files in "C:\Sequences" and save the results in "C:\Sequences\Results\Output {timestamp}" you would use the following:
 
 `python -m PSIPREDauto.PSIPREDauto_commandline --batch --input "C:\Sequences" --email "foo@bar.com" --output "C:\Sequences\Results"`
 
