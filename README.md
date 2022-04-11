@@ -19,7 +19,6 @@ To submit an individual file from python call the `single_submit` function. `sin
 an output directory where results will be saved. For example, to submit the file "TestSeq.fasta" in the directory "C:\Sequences" and save the results in "C:\Sequences\Results" you would use the following call:
 
 `import PSIPREDauto.PSIPREDauto_functions as pa
-
 pa.single_submit(r"C:\Sequences\TestSeq.fasta", "foo@bar.com", r"C:\Sequences\Results")`
 
 For each submission PSIPRED returns 7 different results files in various formats which will be saved in the folder "C:\Sequences\Results\TestSeq.fasta output". 
