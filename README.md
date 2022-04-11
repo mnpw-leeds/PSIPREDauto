@@ -43,9 +43,17 @@ made before jobs are complete the server will start rejecting requests, causing 
 
 ### From the command line
 
-`single_submit` and `batch_submit` can both be called from the command line through "PSIPREDauto_commandline.py". Parameters are largely the same as in python but you must specify if you are submitting a single or batch job with a keyword argument rather than by calling a different function. Use the following example to display the command line help information.
+`single_submit` and `batch_submit` can both be called from the command line through "PSIPREDauto_commandline.py". Parameters are largely the same as in python but you must specify if you are submitting a single or batch job with the `--single` or `--batch` keywords rather than by calling a different function. Use the following example to display the command line help information.
 
 `python -m PSIPREDauto.PSIPREDauto_commandline --help`
+
+To submit "TestSeq.fasta" in the directory "C:\Sequences" and save the results in "C:\Sequences\Results" you would use the following:
+
+`python -m PSIPREDauto.PSIPREDauto_commandline --single --input "C:\Sequences\TestSeq.fasta" --email "foo@bar.com" --output "C:\Sequences\Results"`
+
+Submitting a batch job is similar, but the `--batch` keywoard must be used instead of `--single`. For example to submit all .fasta files in "C:\Sequences" and save the results in "C:\Sequences\Results\Output <timestamp>" you would use the following:
+
+`python -m PSIPREDauto.PSIPREDauto_commandline --batch --input "C:\Sequences" --email "foo@bar.com" --output "C:\Sequences\Results"`
 
 ## Logging
 
