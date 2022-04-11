@@ -17,10 +17,11 @@ although functionality to automatically split them is planned. Individual files 
 
 To submit an individual file from python call the `single_submit` function. `single_submit` requires you to specify the full path to the input file, an email address and
 an output directory where results will be saved. For example, to submit the file "TestSeq.fasta" in the directory "C:\Sequences" and save the results in "C:\Sequences\Results" you would use the following call:
+```
+import PSIPREDauto.PSIPREDauto_functions as pa
 
-`import PSIPREDauto.PSIPREDauto_functions as pa
-pa.single_submit(r"C:\Sequences\TestSeq.fasta", "foo@bar.com", r"C:\Sequences\Results")`
-
+pa.single_submit(r"C:\Sequences\TestSeq.fasta", "foo@bar.com", r"C:\Sequences\Results")
+```
 For each submission PSIPRED returns 7 different results files in various formats which will be saved in the folder "C:\Sequences\Results\TestSeq.fasta output". 
 There is also an optional parameter 'interval' to alter how often the server is polled for results. For example:
 
