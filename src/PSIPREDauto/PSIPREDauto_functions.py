@@ -61,11 +61,12 @@ def check(UUID):
         log.debug(f"Job for {UUID} is not finished\nReturned by server: {output}")
         return(False)
     
-def get_results(name,paths,output_path=""): #Name is only used for writing new file names
+def get_results(name,paths,output_path): #Name is only used for writing new file names
     for path in paths:
         file = requests.get(f"http://bioinf.cs.ucl.ac.uk/psipred/api{path}").text
         drop, ext = os.path.splitext(f"http://bioinf.cs.ucl.ac.uk/psipred/api{path}")
-        name, drop = os.path.splitext(name)
+        name, drop = os.path.splitext(name) #Drop the file extension
+        name = os.path.basename(name) #Keep only the last part of the full path as the name
         full_path = Path(output_path,f"{name}{ext}")
         with open(full_path,"w") as f:
             f.write(file)
@@ -89,9 +90,10 @@ def single_submit(fasta_file, email, output, interval=1): #Provide a fasta file 
     paths = single_schedule_check(interval,uuid)
     output_dir = f"{fasta_file} output"
     full_output_path = Path(output,output_dir)
+    print(f"Single submit full_output_path = {full_output_path}")
     if not full_output_path.is_dir():
         full_output_path.mkdir(parents=True, exist_ok=True)
-    get_results(fasta_file,paths,output_path=full_output_path")
+    get_results(fasta_file,paths,full_output_path)
     print(f"Results retrieved, saved to {full_output_path}")
     
 """Batch submission only"""
@@ -133,7 +135,7 @@ def batch_submit(input_path, email, output, interval=4): #Provide input_path to 
             while len(running)<max_job_number and len(to_run) != 0 : #...ensure that as many as possible are running simultaneously, and stop trying to add more if none are left.
                 running[to_run.pop(0)] = {"UUID":None}
             for file in list(running): #Loop to submit the files
-                full_submit_path = Path(input_path,file)
+                full_submit_path = str(Path(input_path,file))
                 uuid, sub_name = submit(full_submit_path, email)
                 if uuid != False: #Will be false if submit() failed, most likely due to previous jobs not being finished and the maximum number of concurrent jobs being hit
                     running[file]["UUID"] = uuid
@@ -148,7 +150,7 @@ def batch_submit(input_path, email, output, interval=4): #Provide input_path to 
                         to_get[file] = running.pop(file) #Move out of "running" and into "to_get", the contents of which will be downloaded
             for file in to_get: #Download the results
                 log.debug(f"file = {file}\nto_get[file]['input_paths'] = {to_get[file]['input_paths']}")
-                get_results(file,to_get[file]["input_paths"],output_path=f"{output}\\{output_dir}")
+                get_results(file,to_get[file]["input_paths"],output_path=full_output_path)
             completed += len(to_get) #Update the completed count with the sequences that have just been finished
             bar.update(completed)
             to_get = {} #Empty after the files have been downloaded to prevent repetition
