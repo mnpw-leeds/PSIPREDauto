@@ -71,6 +71,6 @@ PSIPREDauto uses the python `logging` module. Enable `logging` to see more infor
 
 ## Known issues
 
-*Very large batches (~>1000 sequences) are currently prone to failure due to the server eventually rejecting a request even if the time interval is long. Possibly due to high load from other users? Working on a feature to catch this exception and prevent the crash here.
-*Very large batches also seem to sometimes experience a problem where progress stops without an exception being thrown. Currently unsure what is causing this issue but it is suspected to be due to the modules internal job queue filling up with jobs that cannot have their results retrieved.
-*Losing internet connection during a job will result in a crash.
+* Very large batches (~>1000 sequences) are currently prone to failure due to the server eventually rejecting a request even if the time interval is long. Possibly due to high load from other users? Working on a feature to catch this exception and prevent the crash here.
+* Very large batches also seem to sometimes experience a problem where progress stops without an exception being thrown. Currently unsure what is causing this issue but it is suspected to be due to the modules internal job queue filling up with jobs that cannot have their results retrieved.
+* Losing internet connection during a job will result in a crash.
