@@ -34,6 +34,8 @@ from PSIPREDauto.PSIPREDauto_functions import single_submit
 
 single_submit(r"C:\Sequences\TestSeq.fasta", "foo@bar.com", r"C:\Sequences\Results")
 ```
+Note that the file paths are passed as strings! Currently no other types of submission are supported.
+
 For each submission PSIPRED returns 7 different results files in various formats which will be saved in the folder "C:\Sequences\Results\TestSeq.fasta output". 
 There is also an optional parameter 'interval' to alter how often the server is polled for results. For example:
 
@@ -67,6 +69,11 @@ Submitting a batch job is similar, but the `--batch` keyword must be used instea
 
 `python -m PSIPREDauto.PSIPREDauto_commandline --batch --input "C:\Sequences" --email "foo@bar.com" --output "C:\Sequences\Results"`
 
+## Other things to note
+  
+* Remember that all file paths must be provided as a string! Alternatives such as a pathlib.Path objects will result in an exception (althought `str(<Path object>)` works fine).
+* The progress bar will only update after polling the server (default every 4 minutes), lack of movement on the progress bar does not mean nothing is happening. Additionally the progress bar isn't particlarly accurate for small batches as it doesn't take into account the waiting interval. 
+  
 ## Logging
 
 PSIPREDauto uses the python `logging` module. Enable `logging` to see more information about what is going on behind the scenes.
