@@ -28,23 +28,23 @@ although functionality to automatically split them is planned. Individual files 
 To submit an individual file from python call the `single_submit` function. `single_submit` requires you to specify the full path to the input file, an email address and
 an output directory where results will be saved. For example, to submit the file "TestSeq.fasta" in the directory "C:\Sequences" and save the results in "C:\Sequences\Results" you would use the following call:
 ```
-import PSIPREDauto.PSIPREDauto_functions as pa
+from PSIPREDauto.PSIPREDauto_functions import single_submit
 
-pa.single_submit(r"C:\Sequences\TestSeq.fasta", "foo@bar.com", r"C:\Sequences\Results")
+single_submit(r"C:\Sequences\TestSeq.fasta", "foo@bar.com", r"C:\Sequences\Results")
 ```
 For each submission PSIPRED returns 7 different results files in various formats which will be saved in the folder "C:\Sequences\Results\TestSeq.fasta output". 
 There is also an optional parameter 'interval' to alter how often the server is polled for results. For example:
 
-`pa.single_submit(r"C:\Sequences\TestSeq.fasta", "foo@bar.com", r"C:\Sequences\Results", interval=1)`
+`single_submit(r"C:\Sequences\TestSeq.fasta", "foo@bar.com", r"C:\Sequences\Results", interval=1)`
 
 would poll the server for results after 1 minute rather than the default 4 minutes. Note that the PSIPRED team recommend 2-5 minutes, however for individual files smaller values are generally ok.
 
 To submit a batch of files use the `batch_submit` function. `batch_submit` requires you to specify the path of the folder containing the .fasta files (`batch_submit` will submit all .fasta files 
 in the folder), an email address and an output directory where results will be saved. For example to submit all .fasta files in "C:\Sequences" and save the results in "C:\Sequences\Results" you would use the following call:
 ```
-import PSIPREDauto.PSIPREDauto_functions as pa
+from PSIPREDauto.PSIPREDauto_functions import batch_submit
 
-pa.batch_submit(r"C:\Sequences", "foo@bar.com", r"C:\Sequences\Results")
+batch_submit(r"C:\Sequences", "foo@bar.com", r"C:\Sequences\Results")
 ```
 The results will be saved in the folder "C:\Sequences\Results\Output (dd-mm-yy h-m-s)", where (dd-mm-yy h-m-s) is the date and time when the job was submitted in european date format. `batch_submit` also has
 the 'interval' parameter which behaves in the same way as in `single_submit`. It is recommended to not alter this in most cases as setting lower values can lead to instability. For small batches of 
