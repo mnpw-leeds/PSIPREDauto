@@ -27,7 +27,7 @@ log = logging.getLogger("PSIPREDauto")
 def submit(fasta_file, email):
     try: 
         url = 'http://bioinf.cs.ucl.ac.uk/psipred/api/submission.json'
-        fasta_file = Path(fasta_file)
+        full_path = Path(fasta_file)
         with open(full_path, 'rb') as f:
             payload = {'input_data': (fasta_file, f)}
             if len(str(fasta_file))>64: # File names cannot be >64 chars, cut down to this if required. Use str(fasta_file) in case a fasta_file is a path object rather than a string, in which case it need to be converted to str first.
