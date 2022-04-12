@@ -24,15 +24,18 @@ log = logging.getLogger("PSIPREDauto")
 
 """Core functions"""
 
-def submit(fasta_file, email, file_path=""):
+def submit(fasta_file, email):
     try: 
         url = 'http://bioinf.cs.ucl.ac.uk/psipred/api/submission.json'
-        with open(f"{file_path}{fasta_file}", 'rb') as f:
+        fasta_file = Path(fasta_file)
+        with open(full_path, 'rb') as f:
             payload = {'input_data': (fasta_file, f)}
-            if len(fasta_file)>64: # File names cannot be >64 chars, cut down to this if required
-                fasta_file = fasta_file[:64]
+            if len(str(fasta_file))>64: # File names cannot be >64 chars, cut down to this if required. Use str(fasta_file) in case a fasta_file is a path object rather than a string, in which case it need to be converted to str first.
+                submission_name = str(fasta_file)[:64]
+            else:
+                submission_name = str(fasta_file)
             data = {'job': 'psipred',
-                    'submission_name': fasta_file,
+                    'submission_name': submission_name,
                     'email': email, }
             r = requests.post(url, data=data, files=payload)
             output = r.json()
@@ -63,7 +66,8 @@ def get_results(name,paths,output_path=""): #Name is only used for writing new f
         file = requests.get(f"http://bioinf.cs.ucl.ac.uk/psipred/api{path}").text
         drop, ext = os.path.splitext(f"http://bioinf.cs.ucl.ac.uk/psipred/api{path}")
         name, drop = os.path.splitext(name)
-        with open(f"{output_path}\\{name}{ext}","w") as f:
+        full_path = Path(output_path,f"{name}{ext}")
+        with open(full_path,"w") as f:
             f.write(file)
     log.debug(f"{name} results retrieved")
     
@@ -75,7 +79,7 @@ def single_schedule_check(interval,UUID): #How often to poll the server in mins,
         time.sleep(interval*60)
         result = check(UUID)
         if result == False:
-            print("Results not ready. Waiting {interval} minutes to poll again")
+            print(f"Results not ready. Waiting {interval} minutes to poll again")
     return(result)
 
 def single_submit(fasta_file, email, output, interval=1): #Provide a fasta file and how often to poll the server for results, in minutes
@@ -84,15 +88,16 @@ def single_submit(fasta_file, email, output, interval=1): #Provide a fasta file 
     print(f"Submitted successfully\nWaiting {interval} minute/s for results")
     paths = single_schedule_check(interval,uuid)
     output_dir = f"{fasta_file} output"
-    if os.path.isdir(f"{output}\\{output_dir}") == False:
-        Path(f"{output}\\{output_dir}").mkdir(parents=True, exist_ok=True)
-    get_results(fasta_file,paths,output_path=f"{output}\\{output_dir}")
-    print(f"Results retrieved, saved to {output}\\{output_dir}")
+    full_output_path = Path(output,output_dir)
+    if not full_output_path.is_dir():
+        full_output_path.mkdir(parents=True, exist_ok=True)
+    get_results(fasta_file,paths,output_path=full_output_path")
+    print(f"Results retrieved, saved to {full_output_path}")
     
 """Batch submission only"""
 
 def batch_submit(input_path, email, output, interval=4): #Provide input_path to directory of single sequence FASTA files, and a time to wait in minutes before polling the server for results
-    max_job_number = 15 #number of concurrent submissions, max of 15 is set by the server
+    max_job_number = 15 #number of concurrent submissions, max of 15 is set by the server. Increasing above this won't speed up the job and will likely lead to instability.
     #Identify .fasta files in the target directory
     fasta_files = []
     for file in os.listdir(input_path):
