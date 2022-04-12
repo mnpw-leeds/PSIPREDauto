@@ -80,7 +80,7 @@ def single_submit(fasta_file, email, output, interval=1): #Provide a fasta file 
     paths = single_schedule_check(interval,uuid)
     output_dir = f"{fasta_file} output"
     if os.path.isdir(f"{output}\\{output_dir}") == False:
-        os.mkdir(f"{output}\\{output_dir}")
+        Path(f"{output}\\{output_dir}").mkdir(parents=True, exist_ok=True)
     get_results(fasta_file,paths,output_path=f"{output}\\{output_dir}")
     print(f"Results retrieved, saved to {output}\\{output_dir}")
     
