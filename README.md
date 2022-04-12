@@ -18,6 +18,8 @@ Alternatively you can download the .tar.gz or .whl files from `dist/` here, then
 
 `pip install <absolute path to PSIPREDauto.tar.gz>`
 
+Or clone the whole project and build it yourself, etc.
+
 ## Examples
 
 Before use ensure that the file/s you wish to upload are appropriate! All files must be .fasta files containing a single protein sequence. Files containing multiple sequences are currently not supported,
