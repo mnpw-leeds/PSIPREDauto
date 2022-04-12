@@ -113,9 +113,10 @@ def batch_submit(input_path, email, output, interval=4): #Provide input_path to 
     #Create a directory with time stamp to store the results
     time_tup = time.localtime()
     useful_time = time.strftime("%d-%m-%Y, %H.%M.%S",time_tup)
-    output_dir = f"Output {useful_time}"
-    Path(f"{output}\\{output_dir}").mkdir(parents=True, exist_ok=True)
-    print(f"\nResults will be saved in: {output}\\{output_dir}")
+    output_dir_name = f"Output {useful_time}"
+    full_output_path = Path(output,output_dir_name)
+    full_output_path.mkdir(parents=True, exist_ok=True)
+    print(f"\nResults will be saved in: {full_output_path}")
     #Create a progress bar
     print("\nNote the progress bar only updates after each waiting interval"
           f" ({interval} mins). "
