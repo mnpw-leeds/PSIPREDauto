@@ -132,7 +132,8 @@ def batch_submit(input_path, email, output, interval=4): #Provide input_path to 
             while len(running)<max_job_number and len(to_run) != 0 : #...ensure that as many as possible are running simultaneously, and stop trying to add more if none are left.
                 running[to_run.pop(0)] = {"UUID":None}
             for file in list(running): #Loop to submit the files
-                uuid, sub_name = submit(file, email, file_path=f"{input_path}/")
+                full_submit_path = Path(input_path,file)
+                uuid, sub_name = submit(full_submit_path, email)
                 if uuid != False: #Will be false if submit() failed, most likely due to previous jobs not being finished and the maximum number of concurrent jobs being hit
                     running[file]["UUID"] = uuid
                     running[file]["input_paths"] = None
