@@ -16,7 +16,7 @@ PSIPREDauto is available from PyPI using pip:
 
 Alternatively you can download the .tar.gz or .whl files from `dist/` here, then install using pip with something like the following:
 
-`pip install <absolute_path_to_PSIPREDauto.tar.gz>`
+`pip install <absolute path to PSIPREDauto.tar.gz>`
 
 ## Examples
 
@@ -61,7 +61,7 @@ To submit "TestSeq.fasta" in the directory "C:\Sequences" and save the results i
 
 `python -m PSIPREDauto.PSIPREDauto_commandline --single --input "C:\Sequences\TestSeq.fasta" --email "foo@bar.com" --output "C:\Sequences\Results"`
 
-Submitting a batch job is similar, but the `--batch` keyword must be used instead of `--single`. For example to submit all .fasta files in "C:\Sequences" and save the results in "C:\Sequences\Results\Output {timestamp}" you would use the following:
+Submitting a batch job is similar, but the `--batch` keyword must be used instead of `--single`. For example to submit all .fasta files in "C:\Sequences" and save the results in "C:\Sequences\Results\Output <timestamp>" you would use the following:
 
 `python -m PSIPREDauto.PSIPREDauto_commandline --batch --input "C:\Sequences" --email "foo@bar.com" --output "C:\Sequences\Results"`
 
