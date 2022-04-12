@@ -10,9 +10,13 @@ After installation PSIPREDauto can be used either as a python package in your ID
 
 ## Installation
 
-WIP
+PSIPREDauto is available from PyPI using pip: 
 
 `pip install PSIPREDauto`
+
+Alternatively you can download the .tar.gz or .whl files from `dist/` here, then install using pip with something like the following:
+
+`pip install <absolute_path_to_PSIPREDauto.tar.gz>`
 
 ## Examples
 
