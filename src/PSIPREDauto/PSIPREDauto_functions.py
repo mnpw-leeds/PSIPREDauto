@@ -10,6 +10,11 @@ individual and batch submission of .fasta files
 The function submit() is based on the example script provided by the PSIPRED team, 
 available at http://www.cs.ucl.ac.uk/fileadmin/bioinf/PSIPRED/send_fasta.py
 
+TODO:
+-Make sure all paths are defined using pathlib to make the code OS agnostic. At present it probably won't work on linux! Note that a lot of things here rely on the string of the path, pathlib tends to return a path object that you might need to use str() on to get things to work with minimal extra effort.
+-Make a Sequence class to hold all information about a sequence (e.g. name, path, sequence, uuid, state) and modify the functions to work with it.
+-Look into using asyncio to allow things to happend while waiting for results. Probably would only be printing things to console in this time however.
+-Change how things are printed to console to make it easier to keep track of progress. Possibly look into format strings.
 """
 import requests, os, logging, time
 from pathlib import Path
