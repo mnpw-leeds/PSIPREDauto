@@ -6,7 +6,7 @@ Created on Fri Apr  8 22:27:47 2022
 """
 
 import argparse, sys
-from functions import single_submit, batch_submit
+from .functions import single_submit, batch_submit
 
 parser = argparse.ArgumentParser(description="psipredapi_auto command line implementation. "\
                                  "Required commands: Either --single or --batch, --input ,"\
@@ -22,8 +22,7 @@ parser.add_argument("--email", "-e", help="Your email address. Required by the P
 parser.add_argument("--interval", "-t", type=int, default=4, help="How often to poll the server for results in minutes. "\
                     "Requires whole integer values and defaults to 4. The PSIPRED team reccommend 2-5 minutes for most jobs. "\
                     "For longer sequences and large batches higher values are reccommended. Setting a lower value is often "\
-                    "ok for individual files or small batches but may lead to instability for large jobs as the server will "\
-                    "refuse requests if too many are submitted too quickly.")
+                    "ok for individual files or small batches but may lead to instability for large jobs.")
     
 args = parser.parse_args()
 dic_args = vars(args)

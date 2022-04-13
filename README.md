@@ -30,7 +30,7 @@ although functionality to automatically split them is planned. Individual files 
 To submit an individual file from python call the `single_submit` function. `single_submit` requires you to specify the full path to the input file, an email address and
 an output directory where results will be saved. For example, to submit the file "TestSeq.fasta" in the directory "C:\Sequences" and save the results in "C:\Sequences\Results" you would use the following call:
 ```
-from PSIPREDauto.PSIPREDauto_functions import single_submit
+from PSIPREDauto.functions import single_submit
 
 single_submit(r"C:\Sequences\TestSeq.fasta", "foo@bar.com", r"C:\Sequences\Results")
 ```
@@ -46,7 +46,7 @@ would poll the server for results after 1 minute rather than the default 4 minut
 To submit a batch of files use the `batch_submit` function. `batch_submit` requires you to specify the path of the folder containing the .fasta files (`batch_submit` will submit all .fasta files 
 in the folder), an email address and an output directory where results will be saved. For example to submit all .fasta files in "C:\Sequences" and save the results in "C:\Sequences\Results" you would use the following call:
 ```
-from PSIPREDauto.PSIPREDauto_functions import batch_submit
+from PSIPREDauto.functions import batch_submit
 
 batch_submit(r"C:\Sequences", "foo@bar.com", r"C:\Sequences\Results")
 ```
@@ -57,17 +57,17 @@ made before jobs are complete the server will start rejecting requests, causing 
 
 ### From the command line
 
-Single and batch submissions can be made from the command line through "PSIPREDauto_commandline.py". Parameters are largely the same as in python but you must specify if you are submitting a single or batch job with the `--single` or `--batch` keywords rather than by calling a different function. Use the following example to display the command line help information.
+Single and batch submissions can be made from the command line through "commandline.py". Parameters are largely the same as in python but you must specify if you are submitting a single or batch job with the `--single` or `--batch` keywords rather than by calling a different function. Use the following example to display the command line help information.
 
-`python -m PSIPREDauto.PSIPREDauto_commandline --help`
+`python -m PSIPREDauto.commandline --help`
 
 To submit "TestSeq.fasta" in the directory "C:\Sequences" and save the results in "C:\Sequences\Results" you would use the following:
 
-`python -m PSIPREDauto.PSIPREDauto_commandline --single --input "C:\Sequences\TestSeq.fasta" --email "foo@bar.com" --output "C:\Sequences\Results"`
+`python -m PSIPREDauto.commandline --single --input "C:\Sequences\TestSeq.fasta" --email "foo@bar.com" --output "C:\Sequences\Results"`
 
 Submitting a batch job is similar, but the `--batch` keyword must be used instead of `--single`. For example to submit all .fasta files in "C:\Sequences" and save the results in "C:\Sequences\Results\Output <timestamp>" you would use the following:
 
-`python -m PSIPREDauto.PSIPREDauto_commandline --batch --input "C:\Sequences" --email "foo@bar.com" --output "C:\Sequences\Results"`
+`python -m PSIPREDauto.commandline --batch --input "C:\Sequences" --email "foo@bar.com" --output "C:\Sequences\Results"`
 
 ## Other things to note
   
