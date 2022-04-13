@@ -29,7 +29,7 @@ from PSIPREDauto.functions import single_submit
 
 single_submit(r"C:\Sequences\TestSeq.fasta", "foo@bar.com", r"C:\Sequences\Results")
 ```
-Note that the file paths are passed as strings! Currently no other types of submission are supported.
+Note that file paths and email address are passed as strings! Currently no other types of submission are supported for these arguments.
 
 For each submission PSIPRED returns 7 different results files in various formats which will be saved in the folder "C:\Sequences\Results\TestSeq.fasta output". Note the PSIPRED server will also send a copy of the results to the specified email address.
 There is also an optional parameter 'interval' to alter how often the server is polled for results. For example:
