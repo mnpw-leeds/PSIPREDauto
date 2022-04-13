@@ -29,6 +29,7 @@ dic_args = vars(args)
 print("\nInput parameters:")
 for arg in dic_args:
     print(f"{arg} = {dic_args[arg]}")
+print("\n")
 
 if args.single == True and args.batch == True:
     print("Error: --single and --batch cannot both be specified")

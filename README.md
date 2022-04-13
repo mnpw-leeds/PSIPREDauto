@@ -1,12 +1,12 @@
 # PSIPREDauto Readme
 
-PSIPREDauto is an unofficial python package to simplify and automate use of the PSIPRED REST API. PSIPRED is a program to predict the secondary
+PSIPREDauto simplifies and automates the use of the PSIPRED REST API. PSIPRED is a program to predict the secondary
 structure of proteins, available as an [interactive web app](http://bioinf.cs.ucl.ac.uk/psipred/), a [REST API](http://bioinfadmin.cs.ucl.ac.uk/UCL-CS_Bioinformatics_Web_Services.html) and [source code on GitHub](https://github.com/psipred/psipred). All versions of PSIPRED were developed and are maintained by the [UCL Department of Computer Science: Bioinformatics Group](http://bioinf.cs.ucl.ac.uk/).
 This is an unnoffical package and is not affiliated with the PSIPRED team or UCL. If you use PSIPREDauto in any published work, please cite PSIPRED [(see guidance from the PSIPRED team on how they like to be cited)](http://bioinfadmin.cs.ucl.ac.uk/UCL-CS_Bioinformatics_PSIPRED_citation.html) and not this package, the PSIPRED team deserve the credit! Any acknowledgement of PSIPREDauto would of course be greatly appreciated, but this package would be impossible without the hard work of the PSIPRED team.
 
 This package was developed as the documentation for both the PSIPRED REST API and source code is out of date and difficult to use, and only individual jobs can be submitted via the web app. Consequently using PSIPRED for any more than a handful of jobs is currently difficult. The aim of PSIPREDauto is to allow easy submission of large jobs to PSIPRED and to automatically retrieve the results. This is all done with minimal effort for the user via Python. 
 
-After installation PSIPREDauto can be used either as a python package in your IDE, or from the command line via the PSIPREDauto_commandline.py script. PSIPREDauto has only been tested on Windows 10, however only makes use of the Python standard library and the widely compatible `progressbar2` library so should work on any OS.
+After installation PSIPREDauto can be used either as a python package in your IDE, or from the command line via the commandline.py script. PSIPREDauto has only been tested on Windows 10, however only makes use of the Python standard library and the widely compatible `progressbar2` library so should work on any OS.
 
 ## Installation
 
@@ -14,11 +14,7 @@ PSIPREDauto is available from PyPI using pip:
 
 `pip install PSIPREDauto`
 
-Alternatively you can download the .tar.gz or .whl files from `dist/` here, then install using pip with something like the following:
-
-`pip install <absolute path to PSIPREDauto.tar.gz>`
-
-Or clone the whole project and build it yourself, etc.
+Alternatively, the source code is [available on github](https://github.com/mnpw-leeds/PSIPREDauto) to do with what you will.
 
 ## Examples
 
@@ -28,7 +24,7 @@ although functionality to automatically split them is planned. Individual files 
 ### In python
 
 To submit an individual file from python call the `single_submit` function. `single_submit` requires you to specify the full path to the input file, an email address and
-an output directory where results will be saved. For example, to submit the file "TestSeq.fasta" in the directory "C:\Sequences" and save the results in "C:\Sequences\Results" you would use the following call:
+an output directory where results will be saved. For example, to submit the file "TestSeq.fasta" in the directory "C:\Sequences" with the email address foo@bar.com, and save the results in "C:\Sequences\Results" you would use the following call:
 ```
 from PSIPREDauto.functions import single_submit
 
@@ -36,7 +32,7 @@ single_submit(r"C:\Sequences\TestSeq.fasta", "foo@bar.com", r"C:\Sequences\Resul
 ```
 Note that the file paths are passed as strings! Currently no other types of submission are supported.
 
-For each submission PSIPRED returns 7 different results files in various formats which will be saved in the folder "C:\Sequences\Results\TestSeq.fasta output". 
+For each submission PSIPRED returns 7 different results files in various formats which will be saved in the folder "C:\Sequences\Results\TestSeq.fasta output". Note the PSIPRED server will also send a copy of the results to the specified email address.
 There is also an optional parameter 'interval' to alter how often the server is polled for results. For example:
 
 `single_submit(r"C:\Sequences\TestSeq.fasta", "foo@bar.com", r"C:\Sequences\Results", interval=1)`
@@ -50,10 +46,10 @@ from PSIPREDauto.functions import batch_submit
 
 batch_submit(r"C:\Sequences", "foo@bar.com", r"C:\Sequences\Results")
 ```
-The results will be saved in the folder "C:\Sequences\Results\Output (dd-mm-yy h-m-s)", where (dd-mm-yy h-m-s) is the date and time when the job was submitted in european date format. `batch_submit` also has
+The results will be saved in the folder "C:\Sequences\Results\Output <timestamp>", where the timestamp is in dd-mm-yy h-m-s format. Remember that you will also receive a seperate email copy of the results for each file submitted, if you are submitting a large batch it is advisable to set up an email filter to prevent your inbox being flooded by PSIPRED (emails will be from "psipred@cs.ucl.ac.uk", without quotes) . `batch_submit` also has
 the 'interval' parameter which behaves in the same way as in `single_submit`. It is recommended to not alter this in most cases as setting lower values can lead to instability. For small batches of 
 short sequences lower values may lead to faster completion, however for longer sequences and larger batches it may cause the program to crash before completion. This is because if too many requests are 
-made before jobs are complete the server will start rejecting requests, causing an exception to be thrown. At present this will cause the program to crash.
+made before jobs are complete the server will start rejecting requests, causing an exception to be thrown. At present this will cause a crash.
 
 ### From the command line
 
@@ -69,10 +65,12 @@ Submitting a batch job is similar, but the `--batch` keyword must be used instea
 
 `python -m PSIPREDauto.commandline --batch --input "C:\Sequences" --email "foo@bar.com" --output "C:\Sequences\Results"`
 
+There is also an `--interval` keyword argument that works in the same way as above, however only takes integer values. As when used in a Python script the default interval is 4 minutes.
+
 ## Other things to note
   
-* Remember that all file paths must be provided as a string! Alternatives such as a pathlib.Path objects will result in an exception (althought `str(<Path object>)` works fine).
-* The progress bar will only update after polling the server (default every 4 minutes), lack of movement on the progress bar does not mean nothing is happening. Additionally the progress bar isn't particlarly accurate for small batches as it doesn't take into account the waiting interval. 
+* Remember that all file paths must be provided as a string! Alternatives such as the path without quotes or pathlib.Path objects will result in an exception.
+* The progress bar will only update after it successfully receives results from the server (default every 4 minutes), lack of movement on the progress bar does not mean nothing is happening. Additionally the progress bar isn't particlarly accurate for small batches as it doesn't take into account the waiting interval. 
   
 ## Logging
 
