@@ -60,7 +60,7 @@ To submit "TestSeq.fasta" in the directory "C:\Sequences" and save the results i
 
 `python -m PSIPREDauto.commandline --single --input "C:\Sequences\TestSeq.fasta" --email "foo@bar.com" --output "C:\Sequences\Results"`
 
-Submitting a batch job is similar, but the `--batch` keyword must be used instead of `--single`. For example to submit all .fasta files in "C:\Sequences" and save the results in "C:\Sequences\Results\Output <timestamp>" you would use the following:
+Submitting a batch job is similar, but the `--batch` keyword must be used instead of `--single`. For example to submit all .fasta files in "C:\Sequences" and save the results in "C:\Sequences\Results\Output \<timestamp\>" you would use the following:
 
 `python -m PSIPREDauto.commandline --batch --input "C:\Sequences" --email "foo@bar.com" --output "C:\Sequences\Results"`
 
@@ -68,8 +68,8 @@ There is also an `--interval` keyword argument that works in the same way as abo
 
 ## Other things to note
   
-* Remember that all file paths must be provided as a string! Alternatives such as the path without quotes or pathlib.Path objects will result in an exception.
-* The progress bar will only update after it successfully receives results from the server (default every 4 minutes), lack of movement on the progress bar does not mean nothing is happening. Additionally the progress bar isn't particlarly accurate for small batches as it doesn't take into account the waiting interval. 
+* Remember that all file paths and your email address must be provided as a string! Alternatives such as the path without quotes or pathlib.Path objects will result in an exception.
+* The progress bar will only update after it successfully receives results from the server (probably every waiting interval unless you have submitted very long sequences), lack of movement on the progress bar does not mean nothing is happening. Additionally the progress bar isn't particlarly accurate for small batches as it doesn't take into account the waiting interval. 
   
 ## Logging
 
