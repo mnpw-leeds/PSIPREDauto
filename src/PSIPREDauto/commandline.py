@@ -6,7 +6,7 @@ Created on Fri Apr  8 22:27:47 2022
 """
 
 import argparse, sys
-from PSIPREDauto_functions import single_submit, batch_submit
+from functions import single_submit, batch_submit
 
 parser = argparse.ArgumentParser(description="psipredapi_auto command line implementation. "\
                                  "Required commands: Either --single or --batch, --input ,"\
