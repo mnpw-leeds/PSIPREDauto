@@ -65,6 +65,7 @@ def get_results(name,paths,output_path): #Name is only used for writing new file
     for path in paths:
         file = requests.get(f"http://bioinf.cs.ucl.ac.uk/psipred/api{path}").text
         drop, ext = os.path.splitext(f"http://bioinf.cs.ucl.ac.uk/psipred/api{path}")
+        # Remember "name" will often be given an absolute file path that will need to be cut down to just the file name, which can then be used to make the new output path
         name, drop = os.path.splitext(name) #Drop the file extension
         name = os.path.basename(name) #Keep only the last part of the full path as the name
         full_path = Path(output_path,f"{name}{ext}")

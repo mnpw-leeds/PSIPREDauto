@@ -2,9 +2,9 @@ LICENSE
 README.md
 pyproject.toml
 setup.cfg
-src/PSIPREDauto/PSIPREDauto_commandline.py
-src/PSIPREDauto/PSIPREDauto_functions.py
 src/PSIPREDauto/__init__.py
+src/PSIPREDauto/commandline.py
+src/PSIPREDauto/functions.py
 src/PSIPREDautotest.egg-info/PKG-INFO
 src/PSIPREDautotest.egg-info/SOURCES.txt
 src/PSIPREDautotest.egg-info/dependency_links.txt
