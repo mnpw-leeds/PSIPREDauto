@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: PSIPREDautotest
-Version: 0.0.2.1
+Version: 0.0.2.2
 Summary: Automated submission to the PSIPRED protein secondary structure calculator REST API.
 Author: Piers Wilkinson
 Author-email: pnw2@hotmail.co.uk
