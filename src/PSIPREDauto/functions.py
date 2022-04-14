@@ -11,7 +11,6 @@ The function submit() is based on the example script provided by the PSIPRED tea
 available at http://www.cs.ucl.ac.uk/fileadmin/bioinf/PSIPRED/send_fasta.py
 
 TODO:
--Make sure all paths are defined using pathlib to make the code OS agnostic. At present it probably won't work on linux! Note that a lot of things here rely on the string of the path, pathlib tends to return a path object that you might need to use str() on to get things to work with minimal extra effort.
 -Make a Sequence class to hold all information about a sequence (e.g. name, path, sequence, uuid, state) and modify the functions to work with it.
 -Look into using asyncio to allow things to happend while waiting for results. Probably would only be printing things to console in this time however.
 -Change how things are printed to console to make it easier to keep track of progress. Possibly look into format strings.
@@ -21,6 +20,10 @@ from pathlib import Path
 import progressbar #The only external package required
 
 log = logging.getLogger("PSIPREDauto")
+
+class job: #Class to store information about each sequence submitted as an object
+    def __init__ (self, path):
+        self.path = path
 
 """Core functions"""
 
@@ -86,6 +89,7 @@ def single_schedule_check(interval,UUID): #How often to poll the server in mins,
 
 def single_submit(fasta_file, email, output, interval=1): #Provide a fasta file and how often to poll the server for results, in minutes
     print(f"Submitting {fasta_file}, please wait")
+    job(fasta_file)
     uuid, sub_name = submit(fasta_file, email)
     print(f"Submitted successfully\nWaiting {interval} minute/s for results")
     paths = single_schedule_check(interval,uuid)
