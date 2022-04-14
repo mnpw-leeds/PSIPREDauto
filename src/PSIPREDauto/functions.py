@@ -85,7 +85,6 @@ def single_schedule_check(interval,UUID): #How often to poll the server in mins,
 
 def single_submit(fasta_file, email, output, interval=1): #Provide a fasta file and how often to poll the server for results, in minutes
     print(f"Submitting {fasta_file}, please wait")
-    job(fasta_file)
     uuid, sub_name = submit(fasta_file, email)
     print(f"Submitted successfully\nWaiting {interval} minute/s for results")
     paths = single_schedule_check(interval,uuid)
