@@ -1,7 +1,6 @@
 # PSIPREDauto Readme
 
-PSIPREDauto simplifies and automates the use of the PSIPRED REST API. PSIPRED is a program to predict the secondary
-structure of proteins, available as an [interactive web app](http://bioinf.cs.ucl.ac.uk/psipred/), a [REST API](http://bioinfadmin.cs.ucl.ac.uk/UCL-CS_Bioinformatics_Web_Services.html) and [source code on GitHub](https://github.com/psipred/psipred). All versions of PSIPRED were developed and are maintained by the [UCL Department of Computer Science: Bioinformatics Group](http://bioinf.cs.ucl.ac.uk/).
+PSIPREDauto simplifies (for the user) and automates the prediction of protein secondary structure from sequence files using the PSIPRED REST API. PSIPRED is a program to predict protein secondary structure and is available as an [interactive web app](http://bioinf.cs.ucl.ac.uk/psipred/), a [REST API](http://bioinfadmin.cs.ucl.ac.uk/UCL-CS_Bioinformatics_Web_Services.html) and [source code on GitHub](https://github.com/psipred/psipred). All versions of PSIPRED were developed and are maintained by the [UCL Department of Computer Science: Bioinformatics Group](http://bioinf.cs.ucl.ac.uk/).
 This is an unnoffical package and is not affiliated with the PSIPRED team or UCL. If you use PSIPREDauto in any published work, please cite PSIPRED [(see guidance from the PSIPRED team on how they like to be cited)](http://bioinfadmin.cs.ucl.ac.uk/UCL-CS_Bioinformatics_PSIPRED_citation.html) and not this package, the PSIPRED team deserve the credit! Any acknowledgement of PSIPREDauto would of course be greatly appreciated, but this package would be impossible without the hard work of the PSIPRED team.
 
 This package was developed as the documentation for both the PSIPRED REST API and source code is out of date and difficult to use, and only individual jobs can be submitted via the web app. Consequently using PSIPRED for any more than a handful of jobs is currently difficult. The aim of PSIPREDauto is to allow easy submission of large jobs to PSIPRED and to automatically retrieve the results. This is all done with minimal effort for the user via Python. 
@@ -30,7 +29,7 @@ from PSIPREDauto.functions import single_submit
 
 single_submit(r"C:\Sequences\TestSeq.fasta", "foo@bar.com", r"C:\Sequences\Results")
 ```
-Note that the file paths are passed as strings! Currently no other types of submission are supported.
+Note that file paths and email address are passed as strings! Currently no other types of submission are supported for these arguments.
 
 For each submission PSIPRED returns 7 different results files in various formats which will be saved in the folder "C:\Sequences\Results\TestSeq.fasta output". Note the PSIPRED server will also send a copy of the results to the specified email address.
 There is also an optional parameter 'interval' to alter how often the server is polled for results. For example:
@@ -46,7 +45,7 @@ from PSIPREDauto.functions import batch_submit
 
 batch_submit(r"C:\Sequences", "foo@bar.com", r"C:\Sequences\Results")
 ```
-The results will be saved in the folder "C:\Sequences\Results\Output <timestamp>", where the timestamp is in dd-mm-yy h-m-s format. Remember that you will also receive a seperate email copy of the results for each file submitted, if you are submitting a large batch it is advisable to set up an email filter to prevent your inbox being flooded by PSIPRED (emails will be from "psipred@cs.ucl.ac.uk", without quotes) . `batch_submit` also has
+The results will be saved in the folder "C:\Sequences\Results\Output \<timestamp\>", where the timestamp is in dd-mm-yy h-m-s format. Remember that you will also receive a seperate email copy of the results for each file submitted, if you are submitting a large batch it is advisable to set up an email filter to prevent your inbox being flooded by PSIPRED (emails will be from "psipred@cs.ucl.ac.uk", without quotes) . `batch_submit` also has
 the 'interval' parameter which behaves in the same way as in `single_submit`. It is recommended to not alter this in most cases as setting lower values can lead to instability. For small batches of 
 short sequences lower values may lead to faster completion, however for longer sequences and larger batches it may cause the program to crash before completion. This is because if too many requests are 
 made before jobs are complete the server will start rejecting requests, causing an exception to be thrown. At present this will cause a crash.
@@ -61,7 +60,7 @@ To submit "TestSeq.fasta" in the directory "C:\Sequences" and save the results i
 
 `python -m PSIPREDauto.commandline --single --input "C:\Sequences\TestSeq.fasta" --email "foo@bar.com" --output "C:\Sequences\Results"`
 
-Submitting a batch job is similar, but the `--batch` keyword must be used instead of `--single`. For example to submit all .fasta files in "C:\Sequences" and save the results in "C:\Sequences\Results\Output <timestamp>" you would use the following:
+Submitting a batch job is similar, but the `--batch` keyword must be used instead of `--single`. For example to submit all .fasta files in "C:\Sequences" and save the results in "C:\Sequences\Results\Output \<timestamp\>" you would use the following:
 
 `python -m PSIPREDauto.commandline --batch --input "C:\Sequences" --email "foo@bar.com" --output "C:\Sequences\Results"`
 
@@ -69,8 +68,8 @@ There is also an `--interval` keyword argument that works in the same way as abo
 
 ## Other things to note
   
-* Remember that all file paths must be provided as a string! Alternatives such as the path without quotes or pathlib.Path objects will result in an exception.
-* The progress bar will only update after it successfully receives results from the server (default every 4 minutes), lack of movement on the progress bar does not mean nothing is happening. Additionally the progress bar isn't particlarly accurate for small batches as it doesn't take into account the waiting interval. 
+* Remember that all file paths and your email address must be provided as a string! Alternatives such as the path without quotes or pathlib.Path objects will result in an exception.
+* The progress bar will only update after it successfully receives results from the server (probably every waiting interval unless you have submitted very long sequences), lack of movement on the progress bar does not mean nothing is happening. Additionally the progress bar isn't particlarly accurate for small batches as it doesn't take into account the waiting interval. 
   
 ## Logging
 
