@@ -21,10 +21,6 @@ import progressbar #The only external package required
 
 log = logging.getLogger("PSIPREDauto")
 
-class job: #Class to store information about each sequence submitted as an object
-    def __init__ (self, path):
-        self.path = path
-
 """Core functions"""
 
 def submit(fasta_file, email):
